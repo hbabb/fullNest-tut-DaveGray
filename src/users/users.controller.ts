@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -20,8 +21,8 @@ export class UsersController {
   }
 
   @Get(':id') // GET: /users/:id
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(parseInt(id, 10));
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findOne(id);
   }
   /*
   All following methods will be appended to the :id route. If you need additional static routes, place them above the dynamic routes - @Get(':id')
@@ -41,7 +42,7 @@ export class UsersController {
 
   @Patch(':id') // PATCH: /users/:id
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body()
     userUpdate: {
       name?: string;
@@ -49,11 +50,11 @@ export class UsersController {
       role?: 'INTERN' | 'ENGINEER' | 'ADMIN';
     },
   ) {
-    return this.usersService.update(parseInt(id, 10), userUpdate);
+    return this.usersService.update(id, userUpdate);
   }
 
   @Delete(':id') // DELETE: /users/:id
-  delete(@Param('id') id: string) {
-    return this.usersService.delete(parseInt(id, 10));
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.delete(id);
   }
 }
