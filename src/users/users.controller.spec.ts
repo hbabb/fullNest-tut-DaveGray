@@ -74,7 +74,7 @@ describe('UsersController', () => {
   });
 
   it('should call findOne and return a user', async () => {
-    const result = await controller.findOne('1');
+    const result = await controller.findOne(1);
     expect(result).toEqual(mockDatabase.users[0]);
     expect(service.findOne).toHaveBeenCalledWith(1);
   });
@@ -92,7 +92,7 @@ describe('UsersController', () => {
 
   it('should call update and return the updated user', async () => {
     const updatedUser = { name: 'Updated Bob', role: 'ENGINEER' as const };
-    const result = await controller.update('2', updatedUser);
+    const result = await controller.update(2, updatedUser);
     expect(result).toEqual({
       id: 2,
       name: 'Updated Bob',
@@ -103,7 +103,7 @@ describe('UsersController', () => {
   });
 
   it('should call delete and return success', async () => {
-    const result = await controller.delete('3');
+    const result = await controller.delete(3);
     expect(result).toEqual({ success: true });
     expect(service.delete).toHaveBeenCalledWith(3);
   });
